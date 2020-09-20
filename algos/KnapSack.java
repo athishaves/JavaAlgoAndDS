@@ -61,9 +61,9 @@ public class KnapSack {
 
 
     // What is the minimum difference you can get from subarrays
-    // s1 + s2 = arraySum
-    // s1 - s2 = diff
-    // 2s1 = arraySum + diff
+    //   s1 + s2 = arraySum
+    // - s1 + s2 = diff
+    // 2s1 = arraySum - diff
     // diff = arraySum - 2s1
     //          --> arraySum == sum of the elements in the array
 
@@ -96,6 +96,7 @@ public class KnapSack {
     public int countSubarraysWithGivenDiff(int[] a, int n, int maxSum) {
         if(maxSum%2==1) return 0;
         maxSum >>= 1;   // Divide it by 2
+        System.out.println(maxSum);
         int[][] table = new int[n+1][maxSum+1];
         for(int i=0; i<=n; i++) {
             for(int j=0; j<=maxSum; j++) {
@@ -106,7 +107,7 @@ public class KnapSack {
             }
         }
         // Will get the number of subsets which add upto maxSum/2
-        // So dividing the result by 2
+        // So dividing the result by 2 to get no of subArrays
         return table[n][maxSum]>>1;
     }
 

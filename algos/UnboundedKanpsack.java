@@ -2,13 +2,14 @@ package algos;
 
 public class UnboundedKanpsack {
 
-    // Knapsack --> Given list of item (weights and profits) and weight constraint.. (repitition is allowed).
+    // Knapsack --> Given list of item (weights and profits) and weight constraint..
+    //                      (multiple instances of an item is allowed).
     // What is the maximum profit we get
     public int knapsackRecursion(int[] w, int[] p, int n, int maxW) {
         if(n==0 || maxW==0) return 0;
         if(w[n-1]>maxW) return knapsackRecursion(w, p, n-1, maxW);
-        return Math.max(knapsackRecursion(w, p, n-1, maxW), // Choosing item
-                p[n-1] + knapsackRecursion(w, p, n, maxW - w[n-1]));   // Not choosing item
+        return Math.max(knapsackRecursion(w, p, n-1, maxW), // Not choosing item
+                p[n-1] + knapsackRecursion(w, p, n, maxW - w[n-1]));   // Choosing item
     }
 
     public int knapsackTable(int[] w, int[] p, int n, int maxW) {
@@ -27,7 +28,6 @@ public class UnboundedKanpsack {
 
     // Rod cutting problem
     // Sarfaraz : Same unbounded knapsack.. no change
-    // But dealing with rods.. That's it
     // array [1..rodLength]
     // n == rodLength
 
