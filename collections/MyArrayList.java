@@ -7,6 +7,8 @@ public class MyArrayList<T> implements MyList {
     // Deleting an element =>  O(n)
     // Accessing an element =>  O(1)
 
+    static final float increaseBy = 1.5f;
+
     int _length = 0;
 
     int _capacity;
@@ -29,6 +31,12 @@ public class MyArrayList<T> implements MyList {
         this._initialCapacity = initialCapacity;
         _array = new Object[_initialCapacity];
         _capacity = _initialCapacity;
+    }
+
+    public MyArrayList(MyCollections<T> collections) {
+        this._capacity = collections.size();
+        _array = new Object[_capacity];
+        addAll(collections);
     }
 
 
@@ -125,7 +133,7 @@ public class MyArrayList<T> implements MyList {
 
     @Override
     public Object set(int index, Object element) {
-        if(isIndexInvalid(index, true)) return null;
+        if(isIndexInvalid(index, false)) return null;
         Object curElement = _array[index];
         _array[index] = element;
         return curElement;
@@ -140,8 +148,7 @@ public class MyArrayList<T> implements MyList {
 
     @Override
     public boolean contains(Object element) {
-        for (Object a : _array) if(a.equals(element)) return true;
-        return false;
+        return indexOf(element)!=-1;
     }
 
 
@@ -171,14 +178,12 @@ public class MyArrayList<T> implements MyList {
     @Override
     public boolean remove(Object element) {
         int index = indexOf(element);
-        if(index==-1) return false;
         return removeIndex(index);
     }
 
     @Override
     public boolean removeLast(Object element) {
         int index = lastIndexOf(element);
-        if(index==-1) return false;
         return removeIndex(index);
     }
 
@@ -224,12 +229,17 @@ public class MyArrayList<T> implements MyList {
     }
 
 
+    @Override
+    public MyArrayList<T> subList(int fromIndex) {
+        return subList(fromIndex, _length-1);
+    }
+
 
     private boolean isIndexInvalid(int index, boolean selectLengthElement) {
         if(selectLengthElement) return index < 0 || index > _length; // a[length] is also valid
         return index < 0 || index >= _length;
     }
 
-    private int increasedCapacity(int capacity) { return ((int) (capacity*1.5) + 1); }
+    private int increasedCapacity(int capacity) { return ((int) (capacity*increaseBy) + 1); }
 
 }

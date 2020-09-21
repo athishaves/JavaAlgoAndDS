@@ -1,0 +1,125 @@
+package sde;
+
+public class SdePart1 {
+
+
+    // Find the duplicate in an array of n+1 integers
+    // Elements range from 0 to n
+    // Time Complexity : O(n)
+    // Space Complexity : O(1)
+
+    static int findDuplicate(int[] a, int n) {
+        int fast, slow;
+        fast = slow = a[0];
+        do {
+            slow = a[slow];
+            fast = a[a[fast]];
+        } while (fast!=slow);
+        fast = a[0];
+        while (slow!=fast) {
+            slow = a[slow];
+            fast = a[fast];
+        }
+        return slow;
+    }
+
+
+
+    // Dutch Flag or Something Problem
+    // Given an array of 0,1 and 2's.. Sort them
+    // Time Complexity : O(n)
+    // Space Complexity : O(1)
+
+    static int[] sortZOT(int[] a, int n) {
+        int low, mid, high;
+        low = mid = 0;
+        high = n-1;
+        int temp;
+        while (mid<=high) {
+            switch (a[mid]) {
+                case 0:     // Swap a[low] and a[mid]
+                    temp = a[low];
+                    a[low] = a[mid];
+                    a[mid] = temp;
+                    low++;  mid++;
+                    break;
+                case 1:
+                    mid++;
+                    break;
+                case 2:     // Swap a[high] and a[mid]
+                    temp = a[mid];
+                    a[mid] = a[high];
+                    a[high] = temp;
+                    high--;
+                    break;
+            }
+        }
+        return a;
+    }
+
+
+
+    // GAP Problem/Algorithm
+    // Merge two sorted arrays
+    // First array = [0...m-1]
+    // Second array = [m...n-1]
+    // Input array => {1,4,7,8,10,2,3,9};   firstArray upto 5.. secondArray from 6
+
+    // Time Complexity : O(n.log2n)
+    // Space Complexity : O(1)
+
+    static int[] mergeArrays(int[] a, int n) {
+        int gap = n;
+        if(gap%2==1) gap++;
+        gap >>= 1;
+        int first, second;
+        while (gap!=1) {
+            first = 0;  second = gap;
+            while (second<n) {
+                if(a[first]>a[second]) {
+                    // Swap a[first] and a[second]
+                    int temp = a[first];
+                    a[first] = a[second];
+                    a[second] = temp;
+                }
+                first++;    second++;
+            }
+            if(gap%2==1) gap++;
+            gap >>= 1;
+        }
+        first = 0;  second = gap;
+        while (second<n) {
+            if(a[first]>a[second]) {
+                int temp = a[first];
+                a[first] = a[second];
+                a[second] = temp;
+            }
+            first++;    second++;
+        }
+        return a;
+    }
+
+
+    // Time Complexity : O(m.n)
+    // Space Complexity : O(1)
+
+    static void mergeSortedArraysMethodTwo(int[] a, int[] b, int m, int n) {
+        int first = 0, temp;
+        while(first<m) {
+            if(a[first]>b[0]) {
+                // swap a[first] and b[0]
+                temp = a[first];
+                a[first] = b[0];
+                b[0] = temp;
+                int per = b[0], i;
+                for (i=1; i<n && b[i]<per; i++) b[i-1]=b[i];
+                // replace b[i-1] and per
+                b[i-1] = per;
+            }
+            first++;
+        }
+        for (int z : a) System.out.print(z + " ");
+        for (int z : b) System.out.print(z + " ");
+    }
+
+}

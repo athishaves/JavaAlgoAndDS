@@ -12,5 +12,7 @@ public interface MyList<T> extends MyCollections<T> {
 
     // Return a sublist from the fromIndex to the toIndex (Inclusive)
     MyList<T> subList(int fromIndex, int toIndex);
+    // Return a sublist from the fromIndex to the end of the list
+    MyList<T> subList(int fromIndex);
 
 }
