@@ -1,8 +1,5 @@
 package ds;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
 public class TreeBasics {
 
     public class Node {
@@ -91,8 +88,13 @@ public class TreeBasics {
 
 
     // Height of a heap
+    // (int) ceil(log2(N+1)) - 1
+    // or
+    // (int) log2N
     public static int heightOfHeap(int n) {
         return (int) Math.ceil(Math.log(n+1) / Math.log(2)) - 1;
     }
+
+    public static int heightOfHeapTwo(int n) { return (int)(Math.log(n)/Math.log(2)); }
 
 }
