@@ -130,6 +130,8 @@ public class SdePart1 {
 
 
     // Merge given intervals
+    // Time Complexity : O(NlogN + N)
+    // Space Complexity : O(1)
 
     public static int[][] mergeIntervals(int[][] intervals) {
         List<int[]> res = new ArrayList<>();

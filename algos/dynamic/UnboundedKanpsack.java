@@ -1,4 +1,4 @@
-package algos;
+package algos.dynamic;
 
 public class UnboundedKanpsack {
 

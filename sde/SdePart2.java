@@ -1,5 +1,7 @@
 package sde;
 
+import java.util.ArrayList;
+
 public class SdePart2 {
 
     // In an mxn matrix, if a cell contains 0 then update the particular row and column to 0
@@ -78,6 +80,94 @@ public class SdePart2 {
             System.out.println();
         }
 
+    }
+
+
+
+    // Print Pascal Triangle
+
+    public static ArrayList<ArrayList<Integer>> pascalTriangle(int n) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        if(n==0) return result;
+
+        ArrayList<Integer> curList = new ArrayList<>(1), prevList;
+
+        curList.add(1);
+        result.add(curList);
+        prevList = curList;
+
+        for (int i=1; i<n; i++) {
+            curList = new ArrayList<>(i+1);
+
+            for (int j=0; j<=i; j++) {
+                if(j==0 || j==i) curList.add(1);
+                else curList.add(prevList.get(j-1) + prevList.get(j));
+            }
+
+            result.add(curList);
+            prevList = curList;
+        }
+
+        return result;
+    }
+
+
+    // Print particular row in Pascal's Triangle
+
+    public static void printRowPascal(int row) {
+        for (int i=0; i<=row; i++) System.out.print(comb(row,i) + " ");
+        System.out.println();
+    }
+
+    private static int comb(int n, int r) {
+        if(r==n || r==0) return 1;
+        if(r==n-1 || r==1) return n;
+
+        if(r>(n>>1)) return comb(n, n-r);
+
+        int num = 1, denom = 1;
+        while (r>0) {
+            num *= n--;
+            denom *= r--;
+        }
+
+        return (int) (num/denom);
+    }
+
+
+    // Print number at particular row and column in pascal's triangle
+
+    public static int numberAtRowColumn(int r, int c) {
+        return comb(r,c);
+    }
+
+
+
+    // Next permutation
+    // [1,2,3] => [1,3,2]
+
+    public static int[] nextPermutation(int[] a, int n) {
+        if(a==null || a.length<=1) return a;
+
+        int i = n-2;
+        while (i>=0 && a[i]>=a[i+1]) i--;
+        if(i>=0) {
+            int j = n-1;
+            while (a[j]<=a[i]) j--;
+            swap(a, i, j);
+        }
+        reverse(a,i+1,n-1);
+        return a;
+    }
+
+    private static void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    private static void reverse(int[] a, int i, int j) {
+        while (i<j) swap(a,i++,j--);
     }
 
 }
