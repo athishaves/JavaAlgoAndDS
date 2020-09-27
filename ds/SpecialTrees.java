@@ -36,12 +36,7 @@ public class SpecialTrees {
         }
 
         private int getLastBit(int n) {
-            int power = 0;
-            while (n>0) {
-                if(n%2==1) return (int) Math.pow(2,power);
-                power++;    n>>=1;
-            }
-            return 0;
+            return (n&(-n));
         }
 
         public int getSum(int k) {

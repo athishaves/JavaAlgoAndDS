@@ -145,6 +145,8 @@ public class SdePart2 {
 
     // Next permutation
     // [1,2,3] => [1,3,2]
+    // Space Complexity : O(1)
+    // Time Complexity : O(3*N)
 
     public static int[] nextPermutation(int[] a, int n) {
         if(a==null || a.length<=1) return a;
@@ -168,6 +170,24 @@ public class SdePart2 {
 
     private static void reverse(int[] a, int i, int j) {
         while (i<j) swap(a,i++,j--);
+    }
+
+
+
+    // Buy Sell stocks
+    // Given stocks data of 'N' days, what to the profit obtained
+    // [7,1,3,5,0]
+    // Buy stocks on the 2nd day.. and sell it on the 4th day
+    // Profit = 5-1 = 4
+
+    public static int buySellStocks(int[] a, int n) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        for (int i=0; i<n; i++) {
+            minPrice = Math.min(minPrice, a[i]);
+            maxProfit = Math.max(maxProfit, a[i] - minPrice);
+        }
+        return maxProfit;
     }
 
 }

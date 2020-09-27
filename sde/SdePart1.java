@@ -39,27 +39,18 @@ public class SdePart1 {
         int low, mid, high;
         low = mid = 0;
         high = n-1;
-        int temp;
         while (mid<=high) {
-            switch (a[mid]) {
-                case 0:     // Swap a[low] and a[mid]
-                    temp = a[low];
-                    a[low] = a[mid];
-                    a[mid] = temp;
-                    low++;  mid++;
-                    break;
-                case 1:
-                    mid++;
-                    break;
-                case 2:     // Swap a[high] and a[mid]
-                    temp = a[mid];
-                    a[mid] = a[high];
-                    a[high] = temp;
-                    high--;
-                    break;
-            }
+            if(a[mid]==0) swap(a, low++, mid++);
+            else if(a[mid]==1) mid++;
+            else swap(a, high--, mid);
         }
         return a;
+    }
+
+    private static void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 
 
