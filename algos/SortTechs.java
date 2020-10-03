@@ -27,10 +27,12 @@ public class SortTechs {
 //    Selection Sort	Ω(n^2)	        Θ(n^2)	        O(n^2)
 
 //    Heap Sort	        Ω(n log(n))	    Θ(n log(n))	    O(n log(n))
+//    -- In worst case, heap sort is better. In best/average case, quick sort is better
 
-//    Radix Sort	    Ω(nk)	        Θ(nk)	        O(nk)
+//    Radix Sort        Ω(nk)	        Θ(nk)	        O(nk)
 
-//    Bucket Sort	    Ω(n+k)	        Θ(n+k)	        O(n^2)
+//    Bucket Sort       Ω(n+k)	        Θ(n+k)	        O(n^2)
+
 
 
 
@@ -79,6 +81,7 @@ public class SortTechs {
 
 
 
+
     // Merge Sort
 
     public void mergeSort(int[] a, int low, int high) {
@@ -122,6 +125,7 @@ public class SortTechs {
 
 
 
+
     // Selection Sort
 
     public void selectionSort(int[] a, int n) {
@@ -135,6 +139,32 @@ public class SortTechs {
         int minIndex = i;
         for (int k=i+1; k<j; k++) if(a[k]<a[minIndex]) minIndex = k;
         return minIndex;
+    }
+
+
+
+
+
+    // Heap Sort
+
+    public void heapSort(int[] a, int n) {
+        for (int i=n>>1; i>0; i--) heapify(a,i,n);
+        for (int i=n-1; i>=0; i--) {
+            swap(a,0,i);
+            heapify(a,0,i);
+        }
+    }
+
+    void heapify(int[] a, int root, int n) {
+        int left = 2*root + 1;      int right = 2*root + 2;
+        int largest = root;
+        if(left<n && a[left]>a[largest]) largest = left;
+        if(right<n && a[right]>a[largest]) largest = right;
+
+        if(largest!=root) {
+            swap(a,root,largest);
+            heapify(a,largest,n);
+        }
     }
 
 
